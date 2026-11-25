@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: elixir-tropical
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
