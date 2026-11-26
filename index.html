@@ -49,6 +49,7 @@
     .media-fallback svg { width: 2rem; height: 2rem; color: #C8963E; }
     .doc-card:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #C8963E; outline-offset: 4px; }
     #lightbox[hidden] { display: none; }
+    .id-document-print { display: none; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
       .reveal { opacity: 1; transform: none; }
@@ -64,6 +65,10 @@
       img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       #chiffres { background: #5A1224 !important; color: #fff !important; }
       a { color: inherit; text-decoration: none; }
+      #dossier .id-document-public { display: none !important; }
+      .id-document-print { display: flex !important; min-height: 238mm; flex-direction: column; justify-content: flex-end; break-before: page; page-break-before: always; }
+      .id-document-print__slot { height: 165mm; border: 1px solid #d8d1ca; background: #fff; }
+      .id-document-print > p { margin-top: 5mm; text-align: center; font-weight: 700; color: #5A1224; }
     }
   </style>
 </head>
@@ -343,10 +348,10 @@
             <p class="text-xs font-extrabold uppercase tracking-[.22em] text-gold">Candidature au programme FSPEEJ</p>
             <h2 class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">Dossier &amp; Pièces<br class="sm:hidden"> Justificatives</h2>
           </div>
-          <p class="max-w-md text-sm leading-6 text-muted">Ouvrez les images pour les voir en grand format. La pièce d’identité, confidentielle, est à remettre séparément au jury par un canal sécurisé.</p>
+          <p class="no-print max-w-md text-sm leading-6 text-muted">Ouvrez les images pour les voir en grand format. La pièce d’identité, confidentielle, est à remettre séparément au jury par un canal sécurisé.</p>
         </div>
         <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <article class="overflow-hidden rounded-2xl bg-white text-left shadow-sm">
+          <article class="id-document-public overflow-hidden rounded-2xl bg-white text-left shadow-sm">
             <span class="media-frame block aspect-[16/10]"><span class="absolute inset-0 grid place-items-center text-wine"><span class="grid justify-items-center gap-3"><i data-lucide="id-card" class="h-10 w-10 text-gold"></i><span class="text-xs font-bold uppercase tracking-wider">Document confidentiel</span></span></span><span class="absolute right-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-wine">Canal sécurisé</span></span>
             <span class="block p-5"><span class="font-bold text-wine">Pièce d’identité valide</span><span class="mt-1 block text-xs leading-5 text-muted">À transmettre au jury par un canal sécurisé, pas sur cette page publique.</span></span>
           </article>
@@ -363,7 +368,11 @@
             <span class="flex items-center justify-between gap-3 p-5"><span class="font-bold text-wine">Preuves de vente ou de commandes</span><i data-lucide="expand" class="h-4 w-4 shrink-0 text-gold"></i></span>
           </button>
         </div>
-        <p class="mt-6 text-xs leading-5 text-muted">Les badges indiquent uniquement la présence du visuel, pas la validation administrative. La pièce d’identité est à transmettre au jury par un canal sécurisé ; elle n’est pas publiée sur cette page.</p>
+        <p class="no-print mt-6 text-xs leading-5 text-muted">Les badges indiquent uniquement la présence du visuel, pas la validation administrative. La pièce d’identité est à transmettre au jury par un canal sécurisé ; elle n’est pas publiée sur cette page.</p>
+        <div class="id-document-print" aria-label="Emplacement réservé à la pièce d’identité">
+          <div class="id-document-print__slot" aria-hidden="true"></div>
+          <p>Pièce d’identité</p>
+        </div>
       </div>
     </section>
   </main>
