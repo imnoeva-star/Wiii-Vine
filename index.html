@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FAF8F5">
-  <meta name="description" content="Elixir Tropical, vin rouge artisanal congolais à base de maïs et de raisins. Découvrez notre histoire, notre ambition et notre candidature au programme FSPEEJ.">
+  <meta name="description" content="Elixir Tropical, vin rouge artisanal congolais à base de maïs et de raisins. Découvrez notre histoire, notre savoir-faire et notre produit.">
   <title>Elixir Tropical — L'authenticité du terroir congolais</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,8 +40,16 @@
     .nav-link:hover, .nav-link:focus-visible { color: #C8963E; }
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .hero-image { animation: hero-drift 7s ease-in-out infinite; }
+    .hero-orbit { animation: orbit-glow 7s ease-in-out infinite; transform-origin: center; }
+    .hero-orbit:nth-of-type(2) { animation-delay: -3.5s; }
+    @keyframes hero-drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes orbit-glow { 0%, 100% { opacity: .42; transform: scale(1); } 50% { opacity: .8; transform: scale(1.035); } }
+    .marquee-track { animation: marquee 32s linear infinite; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
     .media-frame { position: relative; overflow: hidden; background: linear-gradient(135deg, #efe8dc, #e1d3c4); }
     .media-frame img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .media-frame .brand-logo-image { object-fit: contain; }
     .media-frame:hover img { transform: scale(1.035); }
     .media-fallback { position: absolute; inset: 0; display: none; place-items: center; padding: 1.5rem; color: #5A1224; text-align: center; }
     .media-fallback.show { display: grid; }
@@ -49,26 +57,10 @@
     .media-fallback svg { width: 2rem; height: 2rem; color: #C8963E; }
     .doc-card:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #C8963E; outline-offset: 4px; }
     #lightbox[hidden] { display: none; }
-    .id-document-print { display: none; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
       .reveal { opacity: 1; transform: none; }
-    }
-    @page { size: A4; margin: 14mm 12mm; }
-    @media print {
-      body { background: #fff !important; font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      header, #lightbox, .no-print { display: none !important; }
-      .reveal { opacity: 1 !important; transform: none !important; }
-      #accueil .grid { min-height: 0 !important; padding-top: 0 !important; padding-bottom: 16px !important; }
-      section { padding-top: 18px !important; padding-bottom: 18px !important; }
-      .media-frame, article, figure, button.doc-card { break-inside: avoid; }
-      img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      #chiffres { background: #5A1224 !important; color: #fff !important; }
-      a { color: inherit; text-decoration: none; }
-      #dossier .id-document-public { display: none !important; }
-      .id-document-print { display: flex !important; min-height: 238mm; flex-direction: column; justify-content: flex-end; break-before: page; page-break-before: always; }
-      .id-document-print__slot { height: 165mm; border: 1px solid #d8d1ca; background: #fff; }
-      .id-document-print > p { margin-top: 5mm; text-align: center; font-weight: 700; color: #5A1224; }
+      .marquee-track { animation: none; }
     }
   </style>
 </head>
@@ -76,8 +68,9 @@
   <header class="sticky top-0 z-40 border-b border-ink/5 bg-cream/95 backdrop-blur-md">
     <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 lg:px-8" aria-label="Navigation principale">
       <a href="#accueil" class="flex shrink-0 items-center gap-3" aria-label="Elixir Tropical, accueil">
-        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-gold/40 bg-white/70 text-sm font-extrabold tracking-tight text-wine" aria-hidden="true">
-          ET
+        <span class="media-frame grid h-11 w-11 shrink-0 place-items-center rounded-full border border-gold/40 bg-white/70 p-1">
+          <img class="brand-logo-image" src="./assets/images/logo%20avant.jpeg" alt="Logo Elixir Tropical" data-fallback="Logo Elixir Tropical">
+          <span class="media-fallback" aria-hidden="true"><span><i data-lucide="grape"></i>ET</span></span>
         </span>
         <span class="font-display text-lg font-bold leading-tight text-wine sm:text-xl">Elixir Tropical</span>
       </a>
@@ -85,12 +78,11 @@
         <a class="nav-link" href="#histoire">Notre histoire</a>
         <a class="nav-link" href="#produit">Le produit</a>
         <a class="nav-link" href="#vision">Vision &amp; FSPEEJ</a>
-        <a class="nav-link" href="#chiffres">Chiffres clés</a>
-        <a class="nav-link" href="#dossier">Dossier officiel</a>
+        <a class="nav-link" href="#contact">Nous suivre</a>
       </div>
-      <button type="button" data-export-pdf class="no-print hidden items-center gap-2 rounded-full bg-gold px-5 py-3 text-xs font-extrabold uppercase tracking-wider text-ink transition hover:bg-wine hover:text-white sm:inline-flex">
-        Exporter en PDF <i data-lucide="download" class="h-4 w-4"></i>
-      </button>
+      <a href="https://www.instagram.com/elixir_tropical243/" target="_blank" rel="noopener noreferrer" class="hidden items-center gap-2 rounded-full bg-gold px-5 py-3 text-xs font-extrabold uppercase tracking-wider text-ink transition hover:bg-wine hover:text-white sm:inline-flex">
+        <i data-lucide="camera" class="h-4 w-4"></i> Instagram
+      </a>
       <button id="menu-toggle" class="ml-3 grid h-11 w-11 place-items-center rounded-full border border-ink/10 xl:hidden" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
         <i data-lucide="menu" class="h-5 w-5"></i>
       </button>
@@ -100,17 +92,16 @@
         <a class="rounded-lg px-3 py-2.5 hover:bg-white" href="#histoire">Notre histoire</a>
         <a class="rounded-lg px-3 py-2.5 hover:bg-white" href="#produit">Le produit</a>
         <a class="rounded-lg px-3 py-2.5 hover:bg-white" href="#vision">Vision &amp; FSPEEJ</a>
-        <a class="rounded-lg px-3 py-2.5 hover:bg-white" href="#chiffres">Chiffres clés</a>
-        <a class="rounded-lg px-3 py-2.5 hover:bg-white" href="#dossier">Dossier officiel</a>
-        <button type="button" data-export-pdf class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gold px-4 py-3 text-center font-bold">Exporter en PDF <i data-lucide="download" class="h-4 w-4"></i></button>
+        <a class="rounded-lg px-3 py-2.5 hover:bg-white" href="#contact">Nous suivre</a>
+        <a href="https://www.instagram.com/elixir_tropical243/" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gold px-4 py-3 text-center font-bold"><i data-lucide="camera" class="h-4 w-4"></i>Instagram</a>
       </div>
     </div>
   </header>
 
   <main>
     <section id="accueil" class="relative overflow-hidden">
-      <div class="pointer-events-none absolute -right-36 -top-20 h-[34rem] w-[34rem] rounded-full border border-gold/20"></div>
-      <div class="pointer-events-none absolute -right-20 top-8 h-[25rem] w-[25rem] rounded-full border border-gold/20"></div>
+      <div class="hero-orbit pointer-events-none absolute -right-36 -top-20 h-[34rem] w-[34rem] rounded-full border border-gold/20"></div>
+      <div class="hero-orbit pointer-events-none absolute -right-20 top-8 h-[25rem] w-[25rem] rounded-full border border-gold/20"></div>
       <div class="mx-auto grid min-h-[calc(100svh-72px)] max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-[1.08fr_.92fr] lg:px-8 lg:py-20">
         <div class="relative z-10 reveal">
           <div class="mb-9 max-w-2xl border-l-2 border-gold pl-5">
@@ -130,10 +121,10 @@
         </div>
         <div class="relative mx-auto w-full max-w-[34rem] reveal">
           <div class="media-frame aspect-[4/5] rounded-t-[48%] rounded-b-[2rem] shadow-soft">
-            <img src="./assets/images/nouvelle%20bouteille.jpeg" alt="Nouveau modèle de bouteille Elixir Tropical" data-fallback="Nouveau modèle de bouteille Elixir Tropical">
-            <span class="media-fallback" aria-hidden="true"><span><i data-lucide="wine"></i>Nouveau modèle de bouteille</span></span>
+            <img class="hero-image" src="./assets/images/nouvelle%20bouteille.jpeg" alt="Bouteille de vin artisanal Elixir Tropical" data-fallback="Bouteille Elixir Tropical">
+            <span class="media-fallback" aria-hidden="true"><span><i data-lucide="wine"></i>Bouteille de vin artisanal</span></span>
           </div>
-          <span class="absolute right-3 top-5 rounded-full border border-gold/40 bg-cream/95 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-wine shadow-sm">Nouvelle bouteille</span>
+          <span class="absolute right-3 top-5 rounded-full border border-gold/40 bg-cream/95 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-wine shadow-sm">100% artisanal</span>
           <div class="absolute -bottom-5 -left-2 flex items-center gap-3 rounded-2xl border border-gold/35 bg-cream px-5 py-4 shadow-soft sm:-left-8">
             <span class="grid h-11 w-11 place-items-center rounded-full bg-gold/15 text-wine"><i data-lucide="sparkles" class="h-5 w-5"></i></span>
             <span><span class="block text-sm font-extrabold text-wine">100% Artisanal</span><span class="mt-0.5 block text-xs text-muted">Fièrement produit en RDC</span></span>
@@ -142,6 +133,13 @@
         </div>
       </div>
     </section>
+
+    <div class="overflow-hidden border-y border-ink/5 bg-white py-4" aria-label="Maïs et raisins, vin artisanal congolais, une expérience unique">
+      <div class="marquee-track flex w-max items-center gap-7 whitespace-nowrap text-[10px] font-extrabold uppercase tracking-[.22em] text-wine/70 sm:text-xs">
+        <span>Maïs &amp; raisins</span><span class="text-gold">✳</span><span>Vin artisanal congolais</span><span class="text-gold">✳</span><span>Une expérience unique</span><span class="text-gold">✳</span><span>Fièrement produit en RDC</span><span class="text-gold">✳</span>
+        <span aria-hidden="true">Maïs &amp; raisins</span><span aria-hidden="true" class="text-gold">✳</span><span aria-hidden="true">Vin artisanal congolais</span><span aria-hidden="true" class="text-gold">✳</span><span aria-hidden="true">Une expérience unique</span><span aria-hidden="true" class="text-gold">✳</span><span aria-hidden="true">Fièrement produit en RDC</span><span aria-hidden="true" class="text-gold">✳</span>
+      </div>
+    </div>
 
     <section id="histoire" class="scroll-mt-24 bg-white py-20 sm:py-28">
       <div class="mx-auto max-w-7xl px-5 lg:px-8">
@@ -192,11 +190,13 @@
               <span class="font-display text-3xl text-gold">750</span><span class="text-xs font-bold uppercase tracking-[.16em] text-muted">ml · bouteille</span>
             </div>
           </div>
-          <button type="button" class="doc-card media-frame group min-h-[18rem] rounded-3xl text-left shadow-soft sm:min-h-[25rem]" data-lightbox data-src="./assets/images/degustation-poster.jpg" data-alt="Dégustation du vin Elixir Tropical" aria-label="Agrandir la photo de dégustation">
-            <img src="./assets/images/degustation-poster.jpg" alt="Dégustation du vin Elixir Tropical" data-fallback="Dégustation du vin Elixir Tropical">
-            <span class="media-fallback" aria-hidden="true"><span><i data-lucide="images"></i>Photo de dégustation</span></span>
-            <span class="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-6 pt-16 text-white"><span><span class="block text-xs font-bold uppercase tracking-[.18em] text-gold">Une bouteille, une signature</span><span class="mt-1 block font-display text-2xl">Dégustation Elixir Tropical</span></span><i data-lucide="expand" class="h-5 w-5"></i></span>
-          </button>
+          <div class="media-frame group min-h-[18rem] rounded-3xl shadow-soft sm:min-h-[25rem]">
+            <video class="absolute inset-0 h-full w-full bg-ink object-cover" controls autoplay muted loop playsinline preload="auto" poster="./assets/images/degustation-poster.jpg" aria-label="Vidéo de dégustation du vin Elixir Tropical">
+              <source src="./assets/videos/degustation.mp4" type="video/mp4">
+              Votre navigateur ne prend pas en charge la lecture vidéo.
+            </video>
+            <span class="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-ink/70 px-3 py-2 text-[9px] font-bold uppercase tracking-[.14em] text-white backdrop-blur"><span class="h-1.5 w-1.5 animate-pulse rounded-full bg-gold"></span>Dégustation Elixir Tropical</span>
+          </div>
         </div>
         <div class="mt-8 grid justify-items-center">
           <button type="button" class="doc-card media-frame group aspect-[4/3] w-full max-w-2xl rounded-3xl text-left" data-lightbox data-src="./assets/images/fondatrice-bouteilles.jpeg.jpeg" data-alt="La promotrice avec ses bouteilles Elixir Tropical" aria-label="Agrandir la photo de la promotrice avec ses bouteilles">
@@ -204,75 +204,6 @@
             <span class="media-fallback" aria-hidden="true"><span><i data-lucide="user-round"></i>La promotrice avec ses bouteilles</span></span>
             <span class="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/70 to-transparent p-5 pt-14 text-white"><span class="font-display text-xl">Un savoir-faire engagé</span><i data-lucide="expand" class="h-5 w-5"></i></span>
           </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="bg-white py-20 sm:py-24" aria-labelledby="identite-title">
-      <div class="mx-auto max-w-7xl px-5 lg:px-8">
-        <div class="overflow-hidden rounded-[2rem] border border-gold/35 bg-cream p-7 sm:p-11 lg:p-14">
-          <div class="grid items-start gap-8 lg:grid-cols-[.65fr_1.35fr]">
-            <div>
-              <p class="text-xs font-extrabold uppercase tracking-[.22em] text-gold">Une marque en évolution</p>
-              <h2 id="identite-title" class="mt-4 font-display text-3xl leading-tight text-wine sm:text-4xl">Pourquoi avons-nous changé de logo&nbsp;?</h2>
-              <span class="mt-6 inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-wine"><i data-lucide="refresh-cw" class="h-4 w-4"></i>Nouvelle identité, même essence</span>
-            </div>
-            <div class="space-y-4 text-sm leading-7 text-muted sm:text-base">
-              <p>Le changement de logo d’Elixir Tropical s’inscrit dans une volonté d’évolution et de modernisation de notre marque.</p>
-              <p>Depuis nos débuts, notre entreprise grandit, notre vision s’élargit et nos ambitions deviennent plus grandes. Il était donc important d’adopter une nouvelle identité visuelle qui reflète mieux notre évolution, notre créativité et la qualité de notre produit.</p>
-              <p>Ce nouveau logo représente une nouvelle étape dans notre aventure entrepreneuriale. Il traduit notre volonté de construire une marque forte, reconnaissable et capable de se démarquer sur le marché.</p>
-              <p class="border-l-2 border-gold pl-5 font-semibold text-wine">Nous avons changé de logo, mais pas notre essence. Elixir Tropical reste fidèle à ses valeurs, à son savoir-faire artisanal et à son engagement de vous offrir une expérience unique.</p>
-              <p class="text-sm font-semibold text-wine">L’ancienne bouteille conserve son logo d’origine. La nouvelle bouteille illustre l’identité visuelle adoptée aujourd’hui.</p>
-            </div>
-          </div>
-          <div class="mt-10">
-            <div class="mx-auto max-w-2xl text-center">
-              <p class="text-xs font-extrabold uppercase tracking-[.2em] text-gold">Le nouveau visuel</p>
-              <h3 class="mt-3 font-display text-2xl text-wine sm:text-3xl">Un design pensé sur deux faces.</h3>
-              <p class="mt-3 text-sm leading-6 text-muted">L’étiquette Elixir Tropical a été conçue comme un ensemble : une face avant pour présenter la marque et le produit, et une face arrière pour raconter son histoire et ses engagements.</p>
-            </div>
-            <div class="mt-7 grid gap-5 sm:grid-cols-2">
-              <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm" data-lightbox data-src="./assets/images/logo%20avant.jpeg" data-alt="Face avant du nouveau design Elixir Tropical" aria-label="Agrandir la face avant du nouveau design">
-                <span class="media-frame block aspect-[4/5] bg-white"><img class="object-contain p-3" src="./assets/images/logo%20avant.jpeg" alt="Face avant du nouveau design Elixir Tropical" data-fallback="Face avant du design Elixir Tropical"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="panels-top-left"></i>Face avant du design</span></span></span>
-                <span class="flex items-center justify-between gap-3 p-4"><span><span class="block text-[10px] font-extrabold uppercase tracking-[.16em] text-gold">Étiquette · face avant</span><span class="mt-1 block font-display text-xl text-wine">Elixir Tropical</span></span><i data-lucide="expand" class="h-4 w-4 text-gold"></i></span>
-              </button>
-              <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm" data-lightbox data-src="./assets/images/logo%20arriere.jpeg" data-alt="Face arrière du nouveau design Elixir Tropical" aria-label="Agrandir la face arrière du nouveau design">
-                <span class="media-frame block aspect-[4/5] bg-white"><img class="object-contain p-3" src="./assets/images/logo%20arriere.jpeg" alt="Face arrière du nouveau design Elixir Tropical" data-fallback="Face arrière du design Elixir Tropical"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="panels-top-left"></i>Face arrière du design</span></span></span>
-                <span class="flex items-center justify-between gap-3 p-4"><span><span class="block text-[10px] font-extrabold uppercase tracking-[.16em] text-gold">Étiquette · face arrière</span><span class="mt-1 block font-display text-xl text-wine">Composition &amp; engagements</span></span><i data-lucide="expand" class="h-4 w-4 text-gold"></i></span>
-              </button>
-            </div>
-          </div>
-          <div class="mt-10 grid gap-5 sm:grid-cols-2">
-            <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm" data-lightbox data-src="./assets/images/ancienne%20bouteille.jpeg" data-alt="Ancienne bouteille Elixir Tropical avec son logo d’origine" aria-label="Agrandir l’ancienne bouteille et son logo">
-              <span class="media-frame block aspect-[4/5]"><img src="./assets/images/ancienne%20bouteille.jpeg" alt="Ancienne bouteille Elixir Tropical avec son logo d’origine" data-fallback="Ancienne bouteille et logo d’origine"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="wine"></i>Ancienne bouteille<br>Logo d’origine</span></span></span>
-              <span class="flex items-center justify-between gap-3 p-4"><span><span class="block text-[10px] font-extrabold uppercase tracking-[.16em] text-gold">Avant</span><span class="mt-1 block font-display text-xl text-wine">Ancien logo</span></span><i data-lucide="expand" class="h-4 w-4 text-gold"></i></span>
-            </button>
-            <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm" data-lightbox data-src="./assets/images/nouvelle%20bouteille.jpeg" data-alt="Nouvelle bouteille et nouvelle identité visuelle Elixir Tropical" aria-label="Agrandir la nouvelle bouteille">
-              <span class="media-frame block aspect-[4/5]"><img src="./assets/images/nouvelle%20bouteille.jpeg" alt="Nouvelle bouteille et nouvelle identité visuelle Elixir Tropical" data-fallback="Nouvelle bouteille et nouvelle identité visuelle"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="wine"></i>Nouvelle bouteille<br>Nouvelle identité</span></span></span>
-              <span class="flex items-center justify-between gap-3 p-4"><span><span class="block text-[10px] font-extrabold uppercase tracking-[.16em] text-gold">Aujourd’hui</span><span class="mt-1 block font-display text-xl text-wine">Nouveau logo</span></span><i data-lucide="expand" class="h-4 w-4 text-gold"></i></span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="chiffres" class="scroll-mt-24 overflow-hidden bg-wine py-20 text-white sm:py-24">
-      <div class="mx-auto max-w-7xl px-5 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center reveal">
-          <p class="text-xs font-extrabold uppercase tracking-[.22em] text-gold">Une activité déjà réelle</p>
-          <h2 class="mt-4 font-display text-4xl leading-tight sm:text-5xl">Des chiffres qui racontent<br class="hidden sm:block"> notre potentiel.</h2>
-          <p class="mt-6 text-sm leading-7 text-white/75">Depuis le lancement de son activité, Elixir Tropical réalise déjà des ventes et génère des revenus grâce à la commercialisation de son vin rouge artisanal. Actuellement, l’entreprise vend environ 30 bouteilles par mois, au prix unitaire de 10 dollars américains.</p>
-        </div>
-        <div class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          <article class="rounded-2xl bg-cream p-5 text-ink sm:p-6 reveal"><p class="font-display text-3xl font-bold text-wine sm:text-4xl" data-count="300" data-prefix="$">0</p><p class="mt-3 text-xs font-bold leading-5 text-muted">Chiffre d’affaires mensuel</p><p class="mt-1 text-[10px] text-muted">30 bouteilles × 10 $</p></article>
-          <article class="rounded-2xl bg-white p-5 text-ink sm:p-6 reveal"><p class="font-display text-3xl font-bold text-wine sm:text-4xl" data-count="10" data-prefix="$">0</p><p class="mt-3 text-xs font-bold leading-5 text-muted">Prix unitaire</p><p class="mt-1 text-[10px] text-muted">Bouteille 750 ml</p></article>
-          <article class="rounded-2xl bg-gold p-5 text-ink sm:p-6 reveal"><p class="font-display text-3xl font-bold text-wine sm:text-4xl" data-count="6" data-prefix="$">0</p><p class="mt-3 text-xs font-bold leading-5">Marge bénéficiaire</p><p class="mt-1 text-[10px]">Par bouteille</p></article>
-          <article class="rounded-2xl bg-white p-5 text-ink sm:p-6 reveal"><p class="font-display text-3xl font-bold text-wine sm:text-4xl" data-count="180" data-prefix="$">0</p><p class="mt-3 text-xs font-bold leading-5 text-muted">Bénéfice mensuel estimé</p><p class="mt-1 text-[10px] text-muted">Sur la base des ventes actuelles</p></article>
-          <article class="col-span-2 rounded-2xl bg-cream p-5 text-ink sm:col-span-1 sm:p-6 reveal"><p class="font-display text-3xl font-bold text-wine sm:text-4xl" data-count="60" data-suffix="%">0</p><p class="mt-3 text-xs font-bold leading-5 text-muted">Marge bénéficiaire</p><p class="mt-1 text-[10px] text-muted">Par bouteille</p></article>
-        </div>
-        <div class="mt-10 grid gap-5 border-t border-white/15 pt-8 text-sm leading-7 text-white/75 md:grid-cols-2 reveal">
-          <p>Ces chiffres démontrent qu’Elixir Tropical possède déjà une activité commerciale réelle et un potentiel de rentabilité. Avec un chiffre d’affaires mensuel de 300 dollars et une marge bénéficiaire de 6 dollars par bouteille, l’entreprise réalise un bénéfice estimé à 180 dollars par mois, sur la base des ventes actuelles.</p>
-          <p>La formalisation et l’accompagnement du FSPEEJ représentent donc une opportunité de renforcer cette activité, d’augmenter progressivement la production et de faire évoluer Elixir Tropical vers une entreprise structurée et compétitive.</p>
         </div>
       </div>
     </section>
@@ -335,43 +266,20 @@
             <p>Le programme de formalisation constitue une opportunité importante pour Elixir Tropical.</p>
             <p>Grâce à cet accompagnement, nous souhaitons bénéficier d’un appui dans les démarches administratives, mieux structurer notre entreprise et poser les bases d’un développement durable.</p>
             <p>Nous croyons que la formalisation est une étape essentielle pour transformer une activité entrepreneuriale en une entreprise structurée, capable de créer de la valeur et de contribuer au développement économique de la République démocratique du Congo.</p>
-            <a href="#dossier" class="mt-2 inline-flex items-center gap-2 rounded-full bg-wine px-6 py-3.5 text-sm font-bold text-white transition hover:bg-ink">Consulter notre dossier <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
+            <a href="#contact" class="mt-2 inline-flex items-center gap-2 rounded-full bg-wine px-6 py-3.5 text-sm font-bold text-white transition hover:bg-ink">Suivre notre actualité <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="dossier" class="scroll-mt-24 bg-[#F1ECE6] py-20 sm:py-28">
-      <div class="mx-auto max-w-7xl px-5 lg:px-8">
-        <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end reveal">
-          <div>
-            <p class="text-xs font-extrabold uppercase tracking-[.22em] text-gold">Candidature au programme FSPEEJ</p>
-            <h2 class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">Dossier &amp; Pièces<br class="sm:hidden"> Justificatives</h2>
+    <section id="contact" class="scroll-mt-24 bg-white px-5 pb-20 lg:px-8">
+      <div class="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-gold/35 bg-cream p-7 sm:p-11 lg:p-14">
+        <div class="grid items-center gap-7 md:grid-cols-[1fr_auto]">
+          <div class="reveal">
+            <p class="text-xs font-extrabold uppercase tracking-[.22em] text-gold">Restons en contact</p>
+            <h2 class="mt-4 font-display text-3xl leading-tight text-wine sm:text-4xl">Retrouvez Elixir Tropical<br class="hidden sm:block">sur Instagram.</h2>
           </div>
-          <p class="no-print max-w-md text-sm leading-6 text-muted">Ouvrez les images pour les voir en grand format. La pièce d’identité, confidentielle, est à remettre séparément au jury par un canal sécurisé.</p>
-        </div>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <article class="id-document-public overflow-hidden rounded-2xl bg-white text-left shadow-sm">
-            <span class="media-frame block aspect-[16/10]"><span class="absolute inset-0 grid place-items-center text-wine"><span class="grid justify-items-center gap-3"><i data-lucide="id-card" class="h-10 w-10 text-gold"></i><span class="text-xs font-bold uppercase tracking-wider">Document confidentiel</span></span></span><span class="absolute right-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-wine">Canal sécurisé</span></span>
-            <span class="block p-5"><span class="font-bold text-wine">Pièce d’identité valide</span><span class="mt-1 block text-xs leading-5 text-muted">À transmettre au jury par un canal sécurisé, pas sur cette page publique.</span></span>
-          </article>
-          <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-soft" data-doc-item data-lightbox data-src="./assets/images/fondatrice.jpeg" data-alt="Portrait de la fondatrice, photo au format passeport" aria-label="Agrandir le portrait de la fondatrice">
-            <span class="media-frame block aspect-[16/10]"><img src="./assets/images/fondatrice.jpeg" alt="Portrait de la fondatrice, photo au format passeport" data-fallback="Portrait de la fondatrice"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="contact"></i>Portrait de la fondatrice</span></span><span data-doc-status class="absolute right-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-wine">Vérification…</span></span>
-            <span class="flex items-center justify-between gap-3 p-5"><span class="font-bold text-wine">Photo passeport de la fondatrice</span><i data-lucide="expand" class="h-4 w-4 shrink-0 text-gold"></i></span>
-          </button>
-          <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-soft" data-doc-item data-lightbox data-src="./assets/images/nouvelle%20bouteille.jpeg" data-alt="Photos de la nouvelle bouteille Elixir Tropical" aria-label="Agrandir la photo de la nouvelle bouteille">
-            <span class="media-frame block aspect-[16/10]"><img src="./assets/images/nouvelle%20bouteille.jpeg" alt="Photos de la nouvelle bouteille Elixir Tropical" data-fallback="Photos des bouteilles Elixir Tropical"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="wine"></i>Photos des bouteilles</span></span><span data-doc-status class="absolute right-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-wine">Vérification…</span></span>
-            <span class="flex items-center justify-between gap-3 p-5"><span class="font-bold text-wine">Photos des bouteilles Elixir Tropical</span><i data-lucide="expand" class="h-4 w-4 shrink-0 text-gold"></i></span>
-          </button>
-          <button type="button" class="doc-card group overflow-hidden rounded-2xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-soft" data-doc-item data-lightbox data-src="./assets/images/doc-preuves-ventes.jpeg" data-alt="Preuves de vente ou de commandes" aria-label="Agrandir les preuves de vente ou de commandes">
-            <span class="media-frame block aspect-[16/10]"><img src="./assets/images/doc-preuves-ventes.jpeg" alt="Preuves de vente ou de commandes" data-fallback="Preuves de vente ou de commandes"><span class="media-fallback" aria-hidden="true"><span><i data-lucide="receipt-text"></i>Preuves de vente</span></span><span data-doc-status class="absolute right-3 top-3 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-wine">Vérification…</span></span>
-            <span class="flex items-center justify-between gap-3 p-5"><span class="font-bold text-wine">Preuves de vente ou de commandes</span><i data-lucide="expand" class="h-4 w-4 shrink-0 text-gold"></i></span>
-          </button>
-        </div>
-        <p class="no-print mt-6 text-xs leading-5 text-muted">Les badges indiquent uniquement la présence du visuel, pas la validation administrative. La pièce d’identité est à transmettre au jury par un canal sécurisé ; elle n’est pas publiée sur cette page.</p>
-        <div class="id-document-print" aria-label="Emplacement réservé à la pièce d’identité">
-          <div class="id-document-print__slot" aria-hidden="true"></div>
-          <p>Pièce d’identité</p>
+          <a href="https://www.instagram.com/elixir_tropical243/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 rounded-full bg-wine px-6 py-4 text-sm font-bold text-white transition hover:bg-ink"><i data-lucide="camera" class="h-5 w-5"></i>@elixir_tropical243<i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
         </div>
       </div>
     </section>
@@ -379,11 +287,14 @@
 
   <footer class="bg-ink px-5 py-10 text-white lg:px-8">
     <div class="mx-auto flex max-w-7xl flex-col justify-between gap-6 sm:flex-row sm:items-center">
-      <a href="#accueil" class="flex items-center gap-3">
-        <span class="grid h-11 w-11 place-items-center rounded-full border border-gold/40 text-sm font-extrabold text-gold">ET</span>
+      <a href="#accueil" class="flex items-center gap-3" aria-label="Elixir Tropical, retour à l’accueil">
+        <span class="media-frame grid h-11 w-11 shrink-0 place-items-center rounded-full border border-gold/40 bg-white p-1">
+          <img class="brand-logo-image" src="./assets/images/logo%20avant.jpeg" alt="">
+          <span class="media-fallback" aria-hidden="true"><span><i data-lucide="grape"></i>ET</span></span>
+        </span>
         <span><span class="block font-display text-xl">Elixir Tropical</span><span class="mt-1 block text-[10px] uppercase tracking-[.15em] text-white/55">L'authenticité du terroir congolais</span></span>
       </a>
-      <p class="max-w-sm text-xs leading-5 text-white/65">Initiative entrepreneuriale congolaise • Candidature Programme FSPEEJ</p>
+      <a href="https://www.instagram.com/elixir_tropical243/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold text-white/75 transition hover:text-gold"><i data-lucide="camera" class="h-4 w-4"></i>Instagram</a>
       <p class="text-xs text-white/55">© 2026 Elixir Tropical. Tous droits réservés.</p>
     </div>
   </footer>
@@ -409,32 +320,8 @@
       }, { once: true });
     });
 
-    const docItems = Array.from(document.querySelectorAll("[data-doc-item]"));
-    function updateDocumentStatus(card) {
-      const image = card.querySelector("img");
-      const status = card.querySelector("[data-doc-status]");
-      const available = image.complete && image.naturalWidth > 0;
-      status.textContent = available ? "Fichier joint" : "À ajouter";
-    }
-    docItems.forEach((card) => {
-      const image = card.querySelector("img");
-      image.addEventListener("load", () => updateDocumentStatus(card), { once: true });
-      image.addEventListener("error", () => updateDocumentStatus(card), { once: true });
-      if (image.complete) updateDocumentStatus(card);
-    });
-
     const menuToggle = document.getElementById("menu-toggle");
     const mobileMenu = document.getElementById("mobile-menu");
-    document.querySelectorAll("[data-export-pdf]").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (mobileMenu.contains(button)) {
-          mobileMenu.classList.add("hidden");
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.setAttribute("aria-label", "Ouvrir le menu");
-        }
-        window.print();
-      });
-    });
     menuToggle.addEventListener("click", () => {
       const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
       menuToggle.setAttribute("aria-expanded", String(!isExpanded));
@@ -456,27 +343,6 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
-
-    const countObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const counter = entry.target;
-        const target = Number(counter.dataset.count);
-        const prefix = counter.dataset.prefix || "";
-        const suffix = counter.dataset.suffix || "";
-        const start = performance.now();
-        const duration = 900;
-        const animate = (now) => {
-          const progress = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          counter.textContent = prefix + Math.round(target * eased).toLocaleString("fr-FR") + suffix;
-          if (progress < 1) requestAnimationFrame(animate);
-        };
-        requestAnimationFrame(animate);
-        observer.unobserve(counter);
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll("[data-count]").forEach((counter) => countObserver.observe(counter));
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightbox-image");
